@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Subscripcion</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'subscriptions/css/styles.css' %}"></style>
+
+    <style media="screen">
+      body {
+        background-color: #2e4c5e;
+        font-family: 'Open Sans', sans-serif;
+      }
+      figure {
+        padding-top: 15px;
+      }
+      h3 {
+        color: white;
+        margin: 15px auto;
+        width: 60%;
+      }
+
+      figure, h3 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <figure>
+        <img src="https://static.platzi.com/static/images/logos/platzi@2x.fdf870da3a22.png" alt="Platzi" />
+      </figure>
+
+      {% if message %}
+        <h3>{{ message }}</h3>
+      {% else %}
+        <h3>
+          Por tan solo 29.00 USD al mes, obtienes acceso a mas de 70 cursos en la mejor plataforma de educacion online.
+        </h3>
+
+        <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4">
+          <div class="panel panel-default credit-card-box">
+              <div class="panel-heading display-table" >
+                  <div class="row display-tr" >
+                      <h3 class="panel-title display-td" >¿Quieres formar parte?</h3>
+                      <div class="display-td" >
+                          <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                      </div>
+                  </div>
+              </div>
+              <div class="panel-body">
+                  <form role="form" id="payment-form" method="POST" action="{% url 'payment' %}">
+                      {% csrf_token %}
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <div class="form-group">
+                                  <label for="cardNumber">Nombre y Apellido</label>
+                                  <div class="input-group">
+                                      <input type="text" class="form-control" name="name" placeholder="Nombre y Apellido" required autofocus
+                                      />
+                                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <div class="form-group">
+                                  <label for="cardNumber">Email</label>
+                                  <div class="input-group">
+                                      <input type="email" class="form-control" name="email" placeholder="Email" required
+                                      />
+                                      <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <div class="form-group">
+                                  <label for="cardNumber">Numero de Tarjeta</label>
+                                  <div class="input-group">
+                                      <input type="tel" class="form-control" name="cardNumber" placeholder="Numero de Tarjeta Valido" autocomplete="cc-number" data-stripe="number" required />
+                                      <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-7 col-md-7">
+                              <div class="form-group">
+                                  <label for="cardExpiry">Fecha de Expiracion</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Mes" size="2" data-stripe="exp_month">
+                                    <span class="input-group-addon">/</span>
+                                    <input type="text" class="form-control" placeholder="Año" size="2" data-stripe="exp_year">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-xs-5 col-md-5 pull-right">
+                              <div class="form-group">
+                                  <label for="cardCVC">CVC</label>
+                                  <input type="tel" class="form-control" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required
+                                  />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <button class="subscribe btn btn-success btn-lg btn-block" >Pagar 29.00 USD!</button>
+                          </div>
+                      </div>
+                      <div class="row " style="display:none;">
+                          <div class="col-xs-12">
+                              <p class="payment-errors"></p>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="{% static 'subscriptions/js/scripts.js' %}"></script>
+  </body>
+</html>
