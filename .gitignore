@@ -1,0 +1,20 @@
+# Files of Python
+*.pyc
+*.pyo
+__pycache__
+
+db.sqlite3
+
+# Files from Docker
+docker-compose.yml
+data/
+
+# Files OSX
+.DS_Store
+
+# Front side
+node_modules
+media
+
+gunicorn/
+tmp
