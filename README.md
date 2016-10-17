@@ -6,7 +6,8 @@ The problem to solve is the following:
 
 ```
 Which is to create a website in Django that allows charging through Stripe a
-monthly subscription of 29 USD and store in database: name and email of the buyer, the amount paid by the user, when it paid and the ID Stripe recurrent customer.
+monthly subscription of 29 USD and store in database: name and email of the buyer,
+the amount paid by the user, when it paid and the ID Stripe recurrent customer.
 
 The site should be developed using Docker, MySQL, unit testing and Stripe API.
 ```
@@ -21,6 +22,8 @@ The site should be developed using Docker, MySQL, unit testing and Stripe API.
 ### Run project
 
 Run the command: `./run_dev.sh`
+
+So, the project will be running at [http://localhost:8000](http://localhost:8000)
 
 ## Environments
 
@@ -37,7 +40,8 @@ To run unit tests of django project, run the following command: `docker-compose 
 
 ## Commands
 
-To run commands that provides 'Django', you need to always put `compose docker-run django / manage.py` before the command. For example to create a super user command would be as follows:.` compose docker-run django. /manage.py createsuperuser`
+To run commands that provides Django, you need to always put `compose docker-run django / manage.py` before the command.
+For example to create a super user command would be as follows:.` compose docker-run django. /manage.py createsuperuser`
 
 ## Models
 
