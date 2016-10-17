@@ -1,0 +1,23 @@
+[
+  {
+    "model": "subscriptions.Customer",
+    "pk": 1,
+    "fields": {
+      "email": "yoelfme@gmail.com",
+      "name": "Fransua Estrada",
+      "stripe_id": "cus_9NtziugZ4PXd3d"
+    }
+  },
+  {
+    "model": "subscriptions.Customer",
+    "pk": 2,
+    "fields": {
+      "email": "julian@outlook.com",
+      "name": "Julian Hernandez",
+      "stripe_id": "cus_9NtziugZ4PXd3d",
+      "stripe_subscription_id": "my_subscription_token",
+      "amount": 29,
+      "payment_date": "2016-10-16"
+    }
+  }
+]
