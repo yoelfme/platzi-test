@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.template.response import TemplateResponse
+from django.http import Http404
 from django.conf import settings
 from django.utils import timezone
 from django.views import View
@@ -13,18 +14,11 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class PaymentView(View):
     template_name = 'subscriptions/payment.html'
     def get(self, request):
-        return render(request, self.template_name)
+        return TemplateResponse(request, self.template_name)
 
 class ProcessPaymentView(View):
     form_class = PaymentForm
     template_name = 'subscriptions/payment.html'
-    messages = {
-        'success': 'El pago ha sido procesado exitosamente, ahora formas parte de Platzi B)',
-        'failed': 'Ocurrio un error al procesar el pago :(',
-        'error_validation': 'Creo que tendras que corregir algunos datos :/',
-        'late_suscribed': 'Ya eras Platzier, solo faltaba la suscripcion, has sido suscrito :D',
-        'already_suscribed': 'Apreciamos tu amor por Platzi, pero ya estas suscrito al plan <3',
-    }
 
     def get(self, request):
         raise Http404
@@ -52,13 +46,15 @@ class ProcessPaymentView(View):
                           plan=settings.STRIPE_DEFAULT_PLAN['id']
                         )
 
-                        # Save the new subscription id
+                        # Save the new subscription id with payment data
                         old_customer.stripe_subscription_id = subscription.id
+                        old_customer.amount = settings.STRIPE_DEFAULT_PLAN['amount']
+                        old_customer.payment_date = timezone.now()
                         old_customer.save()
 
-                        message_key = 'late_suscribed'
+                        message_key = 'late_subscribed'
                     else:
-                        message_key = 'already_suscribed'
+                        message_key = 'already_subscribed'
                 else:
                     # Process payment and suscribe customer to plan in Stripe
                     customer = stripe.Customer.create(
@@ -75,8 +71,8 @@ class ProcessPaymentView(View):
         else:
             message_key = 'error_validation'
 
-        return render(request, 'subscriptions/payment.html', {
-            'message': self.messages[message_key]
+        return TemplateResponse(request, 'subscriptions/payment.html', {
+            'message': settings.PAYMENT_MESSAGES[message_key]
         })
 
     def create_new_customer(self, name, email, stripe_id, stripe_subscription_id):
