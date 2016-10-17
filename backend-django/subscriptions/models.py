@@ -7,9 +7,9 @@ from django.utils.encoding import python_2_unicode_compatible, smart_text
 class Customer(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
-    amount = models.DecimalField(max_digits=6, decimal_places=2)
-    payment_date = models.DateTimeField()
-    stripe_id = models.CharField(max_length=25)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    payment_date = models.DateTimeField(null=True)
+    stripe_id = models.CharField(max_length=25, null=True)
     stripe_subscription_id = models.CharField(max_length=25, blank=True)
 
     def __str__(self):
