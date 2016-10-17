@@ -16,5 +16,4 @@ data/
 node_modules
 media
 
-gunicorn/
 tmp
