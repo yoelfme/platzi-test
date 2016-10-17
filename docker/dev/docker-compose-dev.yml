@@ -1,0 +1,25 @@
+version: '2'
+services:
+  django:
+    build:
+      context: ./backend-django
+      dockerfile: Dockerfile
+    command: ./start.sh
+    environment:
+      DB_ENV_DB_HOST: mysql
+      DB_ENV_DB_PASSWORD: pl@tzit3st
+      DB_ENV_DB_NAME: subscriptions
+    links:
+      - mysql:db
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend-django:/app
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: subscriptions
+      MYSQL_ROOT_PASSWORD: pl@tzit3st
+    volumes:
+      - ./data/mysql:/var/lib/mysql
