@@ -107,6 +107,14 @@ STRIPE_DEFAULT_PLAN = {
     'amount': 29.00
 }
 
+# Payments
+PAYMENT_MESSAGES = {
+    'success': 'El pago ha sido procesado exitosamente, ahora formas parte de Platzi B)',
+    'failed': 'Ocurrio un error al procesar el pago :(',
+    'error_validation': 'Creo que tendras que corregir algunos datos :/',
+    'late_subscribed': 'Ya eras Platziliber, solo faltaba la suscripcion, has sido suscrito :D',
+    'already_subscribed': 'Apreciamos tu amor por Platzi, pero ya estas suscrito al plan <3',
+}
 
 # Logging
 LOGGING = {
